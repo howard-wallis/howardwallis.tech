@@ -1,20 +1,22 @@
 import { h, Component } from 'preact';
 import 'xterm/dist/xterm.css';
 import Terminal from 'xterm';
+import 'xterm/dist/addons/fullscreen/fullscreen.js';
+import 'xterm/dist/addons/fullscreen/fullscreen.css';
 
 export default class Term extends Component {
 	render() {
 		return (
-			<div id='terminal'></div>
+			<div id='terminal' />
 		);
 	};
 			
 	componentDidMount() {
-		console.log('in business');
-		console.log(Terminal);
+		Terminal.loadAddon('fullscreen');
 		var xterm = new Terminal();
-		console.log(xterm);
 		xterm.open(document.getElementById('terminal'), true);
 		xterm.write('Hello Wordl');
+
+		xterm.toggleFullscreen();
 	};
 }
