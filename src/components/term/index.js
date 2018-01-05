@@ -13,10 +13,51 @@ export default class Term extends Component {
 			
 	componentDidMount() {
 		Terminal.loadAddon('fullscreen');
-		var xterm = new Terminal();
-		xterm.open(document.getElementById('terminal'), true);
-		xterm.write('Hello Wordl');
+		this.setState({
+			term: new Terminal(),
+			currentLine: ''
+		});
+		var term = this.state.term;
+		term.open(document.getElementById('terminal'), true);
+		term.toggleFullscreen();
+		term.writeln('Hello Wordl');
+		console.log(term);
 
-		xterm.toggleFullscreen();
+		term.on('refresh', data => {
+			// this.forceUpdate();
+			// console.log('refresh');
+		});
+
+		term.on('lineFeed', () => {
+			console.log('lineFeed', this.state.currentLine);
+			this.setState({
+				currentLine: ''
+			});
+		});
+
+		term.on('key', (key, e) => {
+			// console.log(key);
+			switch(e.key) {
+				case 'Enter':
+					term.writeln('');
+					break;
+				case 'Backspace':
+					// console.log('backspace');
+					this.setState({
+						currentLine: this.state.currentLine.slice(0, - 1)
+					});
+					break;
+				default:
+					term.write(key);
+					this.setState({
+						currentLine: this.state.currentLine += key
+					});
+					break;
+			}
+		});
+
+		term.on('data', data => {
+			// console.log('data', data);
+		});
 	};
 }
