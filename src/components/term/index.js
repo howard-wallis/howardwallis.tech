@@ -35,24 +35,41 @@ export default class Term extends Component {
 			});
 		});
 
-		term.on('key', (key, e) => {
-			// console.log(key);
-			switch(e.key) {
-				case 'Enter':
-					term.writeln('');
-					break;
-				case 'Backspace':
-					// console.log('backspace');
-					this.setState({
-						currentLine: this.state.currentLine.slice(0, - 1)
-					});
-					break;
-				default:
-					term.write(key);
-					this.setState({
-						currentLine: this.state.currentLine += key
-					});
-					break;
+		// term.on('key', (key, e) => {
+		// 	console.log(e.key);
+		// 	switch(e.key) {
+		// 		case 'Enter':
+		// 			term.writeln('');
+		// 			break;
+		// 		case 'Backspace':
+		// 			term.refresh(0,999);
+		// 			console.log("refresh");
+		// 			this.setState({
+		// 				currentLine: this.state.currentLine.slice(0, -1)
+		// 			});
+		// 			break;
+		// 		default:
+		// 			term.write(key);
+		// 			this.setState({
+		// 				currentLine: this.state.currentLine += key
+		// 			});
+		// 			break;
+		// 	}
+		// });
+
+		term.on('key', function (key, ev) {
+			var printable = (
+				!ev.altKey && !ev.altGraphKey && !ev.ctrlKey && !ev.metaKey
+			);
+
+			if (ev.keyCode == 13) {
+				term.write('\r\n' + '$ ');
+			} else if (ev.keyCode == 8) {
+				// Do not delete the prompt
+				console.log(term)
+				term.write('\b \b');
+			} else if (printable) {
+				term.write(key);
 			}
 		});
 
