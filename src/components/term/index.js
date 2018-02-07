@@ -3,6 +3,7 @@ import 'xterm/dist/xterm.css';
 import Terminal from 'xterm';
 import 'xterm/dist/addons/fullscreen/fullscreen.js';
 import 'xterm/dist/addons/fullscreen/fullscreen.css';
+import { termUtils } from './termUtils';
 
 export default class Term extends Component {
 	render() {
@@ -21,7 +22,10 @@ export default class Term extends Component {
 		term.open(document.getElementById('terminal'), true);
 		term.toggleFullscreen();
 		term.writeln('Hello Wordl');
-		console.log(term);
+		term.write(termUtils.printPrompt());
+
+		console.log("test", termUtils, termUtils.keyHandler);
+
 
 		term.on('refresh', data => {
 			// this.forceUpdate();
@@ -57,21 +61,7 @@ export default class Term extends Component {
 		// 	}
 		// });
 
-		term.on('key', function (key, ev) {
-			var printable = (
-				!ev.altKey && !ev.altGraphKey && !ev.ctrlKey && !ev.metaKey
-			);
-
-			if (ev.keyCode == 13) {
-				term.write('\r\n' + '$ ');
-			} else if (ev.keyCode == 8) {
-				// Do not delete the prompt
-				console.log(term)
-				term.write('\b \b');
-			} else if (printable) {
-				term.write(key);
-			}
-		});
+		term.on('key', (key, e) => termUtils.keyHandler(key, e, term));
 
 		term.on('data', data => {
 			// console.log('data', data);
