@@ -17,15 +17,19 @@ let printPrompt = text => {
 }
 
 let keyHandler = (key, e) => {
+    const re = /^\P{Cc}$/
     let printable = (
-        !e.altKey && !e.altGraphKey && !e.ctrlKey && !e.metaKey && (
-            (e.keyCode >= 48 && e.keyCode <= 90) // 0-9a-z
-            || (e.keyCode >= 96 && e.keyCode <= 105) // numpad 0-9
-            || (e.keyCode >= 186 && e.keyCode <= 222) // ; - '
-        ) // https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
+        !e.altKey && !e.altGraphKey && !e.ctrlKey && !e.metaKey && key.length === 1
+        // && (
+        //     (e.keyCode >= 48 && e.keyCode <= 90) // 0-9a-z
+        //     || (e.keyCode >= 96 && e.keyCode <= 105) // numpad 0-9
+        //     || (e.keyCode >= 186 && e.keyCode <= 222) // ; - '
+        // ) // https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
+        // TODO add more special chars e.g. \
     );
 
     switch (e.keyCode) {
+        // TODO handle arrow keys and delete
         case 13: // Enter
             _term.write('\r\n');
             handleInput(_currentLine);
@@ -52,6 +56,19 @@ let keyHandler = (key, e) => {
 
 let handleInput = line => {
     console.log(line);
+    if (line === 'ls') {
+        _term.writeln('.. . file1 file2 file3');
+    } else if (line === 'help') {
+        _term.writeln('Available commands: ls cd cat help')
+    } else {
+        _term.writeln(`Unrecognised command ${line}. Type 'help' to list commands`);
+    }
+
+    // ls
+    // cd
+    // filesystem
+    // cat
+    // help
 }
 
 export let termUtils = {
