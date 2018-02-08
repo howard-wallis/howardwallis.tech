@@ -20,11 +20,14 @@
     "build/*"
   ],
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-jest": "^22.2.0",
     "eslint": "^4.9.0",
     "eslint-config-synacor": "^2.0.2",
     "if-env": "^1.0.0",
     "jest": "^22.2.1",
-    "preact-cli": "^2.0.1"
+    "preact-cli": "^2.0.1",
+    "regenerator-runtime": "^0.11.1"
   },
   "dependencies": {
     "preact": "^8.2.6",
