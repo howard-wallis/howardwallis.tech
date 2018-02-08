@@ -1,79 +1,37 @@
-const fs = { // move to json file
-    "path": "root",
-    "name": "root",
-    "type": "directory",
-    "children": [
-      {
-        "path": "summer",
-        "name": "summer",
-        "type": "directory",
-        "children": [
-          {
-            "path": "summer/june",
-            "name": "june",
-            "type": "directory",
-            "children": [
-              {
-                "path": "summer/june/windsurf.jpg",
-                "name": "windsurf.jpg",
-                "type": "file"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "path": "winter",
-        "name": "winter",
-        "type": "directory",
-        "children": [
-          {
-            "path": "winter/january",
-            "name": "january",
-            "type": "directory",
-            "children": [
-              {
-                "path": "winter/january/ski.png",
-                "name": "ski.png",
-                "type": "file"
-              },
-              {
-                "path": "winter/january/snowboard.jpg",
-                "name": "snowboard.jpg",
-                "type": "file"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-}
+import fs from './fileSystem.json';
 
 let currentPath = '';
 
 let objAtPath = path => {
-    if (!path || path == '/' || path == '\\') {
-        return fs;
-    }
+	if (!path || typeof(path) !== 'string' || path === '/' || path === '\\') {
+		return fs;
+	}
 
-    let components = path.split('/').filter(c => c !== '/')
+	let components = path.split('/').filter(c => c !== '/' && c !== '');
+	let res = fs;
 
-    let res = fs['root'];
-    components.forEach(element => {
-        res = res[components];
-    });
-    return res;
-}
+	components.forEach(c => {
+		res = res.children.filter(o => o.name === c)[0]
+	});
 
-var pathOfObj = fsObj => {
-    // recursive query until you find the obj
-}
+	return res;
+};
 
-let ls = () => {
-    return objAtPath(currentPath).children.map(c => c.name);
-}
+let pathOfObj = fsObj => {
+	// recursive query until you find the obj
+};
 
-export let filesystem = {
-    ls,
-    cd
-}
+let ls = path => {
+	let lsPath = path || currentPath;
+	return objAtPath(lsPath).children.map(c => c.name);
+};
+
+let cd = path => {
+	return 'hi';
+};
+
+export {
+	ls,
+	cd,
+	objAtPath
+};
