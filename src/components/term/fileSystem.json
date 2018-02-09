@@ -1,10 +1,10 @@
 {
     "name": "root",
-    "type": "directory",
+    "type": "folder",
     "children": [
         {
             "name": "photos",
-            "type": "directory",
+            "type": "folder",
             "children": [
                 {
                     "name": "img1.jpg",

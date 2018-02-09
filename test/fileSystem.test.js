@@ -6,22 +6,17 @@ beforeAll(() => {
 });
 
 test('objAtPath no path', () => {
-	let res = fileSystem.objAtPath('');
-	expect(res).toBe(fsJson);
+	let res = fileSystem.objAtPath([]);
+	expect(res).toBe(null);
 });
 
 test('objAtPath null path', () => {
 	let res = fileSystem.objAtPath(null);
-	expect(res).toBe(fsJson);
+	expect(res).toBe(null);
 });
 
 test('objAtPath / path', () => {
-	let res = fileSystem.objAtPath('/');
-	expect(res).toBe(fsJson);
-});
-
-test('objAtPath \\ path', () => {
-	let res = fileSystem.objAtPath('\\');
+	let res = fileSystem.objAtPath(['/']);
 	expect(res).toBe(fsJson);
 });
 
@@ -29,16 +24,15 @@ test('objAtPath /photos/img1.jpg', () => {
 	let expected = {
 		name: "img1.jpg",
 		type: "file"
-	}
-	
-	let res = fileSystem.objAtPath('/photos/img1.jpg');
+	};
+	let res = fileSystem.objAtPath(['photos', 'img1.jpg']);
 	expect(res).toEqual(expected);
 });
 
 test('objAtPath /photos/', () => {
 	let expected = {
 		"name": "photos",
-		"type": "directory",
+		"type": "folder",
 		"children": [
 			{
 				"name": "img1.jpg",
@@ -49,9 +43,8 @@ test('objAtPath /photos/', () => {
 				"type": "file"
 			}
 		]
-	}
-	
-	let res = fileSystem.objAtPath('/photos/');
+	};
+	let res = fileSystem.objAtPath(['photos']);
 	expect(res).toEqual(expected);
 });
 
