@@ -1,5 +1,9 @@
 const fileSystem = require('../src/components/term/fileSystem.js');
-const fsJson = require('../src/components/term/fileSystem.json');
+const fsJson = require('./testFileSystem.json');
+
+beforeAll(() => {
+    fileSystem.setFs(fsJson);
+});
 
 test('objAtPath no path', () => {
 	let res = fileSystem.objAtPath('');
@@ -52,13 +56,25 @@ test('objAtPath /photos/', () => {
 });
 
 test('ls no path', () => {
-	let expected = ['photos', 'file1.txt']
+	let expected = 'photos file1.txt';
 	let res = fileSystem.ls('');
 	expect(res).toEqual(expected);
 });
 
+test('ls null path', () => {
+	let expected = 'photos file1.txt';
+	let res = fileSystem.ls(null);
+	expect(res).toEqual(expected);
+});
+
+test('ls bad path', () => {
+	let expected = 'photos file1.txt';
+	let res = fileSystem.ls(12345);
+	expect(res).toEqual(expected);
+});
+
 test('ls /photos path', () => {
-	let expected = ['img1.jpg', 'img2.png']
+	let expected = 'img1.jpg img2.png';
 	let res = fileSystem.ls('/photos');
 	expect(res).toEqual(expected);
 });

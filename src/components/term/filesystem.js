@@ -1,6 +1,12 @@
-import fs from './fileSystem.json';
+import defaultFs from './fileSystem.json';
 
-let currentPath = '';
+let currentPath = ['/'];
+let fs = defaultFs;
+
+let setFs = fileSystemJson => {
+    if (fileSystemJson)
+        fs = fileSystemJson;
+}
 
 let objAtPath = path => {
 	if (!path || typeof(path) !== 'string' || path === '/' || path === '\\') {
@@ -22,16 +28,30 @@ let pathOfObj = fsObj => {
 };
 
 let ls = path => {
-	let lsPath = path || currentPath;
-	return objAtPath(lsPath).children.map(c => c.name);
+    path = path || currentPath;
+
+    return objAtPath(path)
+        .children
+        .map(c => c.name)
+        .join(' ')
+        .trim();
 };
 
 let cd = path => {
-	return 'hi';
+    // TODO validation
+    // TODO ensure /'s are included
+    // TODO create path adjusting methods that deal with the path as an array underneath
+	currentPath += path;
 };
+
+let getCurrentPath = () => {
+    return currentPath;
+}
 
 export {
 	ls,
 	cd,
-	objAtPath
+    objAtPath,
+    setFs,
+    getCurrentPath
 };

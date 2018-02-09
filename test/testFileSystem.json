@@ -1,0 +1,24 @@
+{
+    "name": "root",
+    "type": "directory",
+    "children": [
+        {
+            "name": "photos",
+            "type": "directory",
+            "children": [
+                {
+                    "name": "img1.jpg",
+                    "type": "file"
+                },
+                {
+                    "name": "img2.png",
+                    "type": "file"
+                }
+            ]
+        },
+        {
+            "name": "file1.txt",
+            "type": "file"
+        }
+    ]
+}

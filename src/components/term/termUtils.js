@@ -1,3 +1,5 @@
+import {ls, cd, getCurrentPath} from './fileSystem.js';
+
 const promptPrefix = 'anon@howardwallis.tech';
 
 // state
@@ -10,8 +12,8 @@ let init = term => {
 	printPrompt();
 };
 
-let printPrompt = text => {
-	_term.write(text ? `${promptPrefix} ${text}$ ` : `${promptPrefix}$ `);
+let printPrompt = () => {
+	_term.write(`${promptPrefix} ${getCurrentPath()}$ `);
 };
 
 let keyHandler = (key, e) => {
@@ -23,12 +25,12 @@ let keyHandler = (key, e) => {
 		// TODO handle arrow keys and delete
 		case 13: // Enter
 			_term.write('\r\n');
-			handleInput(_currentLine);
+			handleLine(_currentLine);
 			_currentLine = '';
 			printPrompt();
 			break;
 
-		case 8: // backspace
+		case 8: // Backspace
 			if (_currentLine) {
 				_currentLine = _currentLine.slice(0, -1);
 				_term.write('\b \b');
@@ -45,26 +47,35 @@ let keyHandler = (key, e) => {
 	}
 };
 
-let handleInput = line => {
-	console.log(line);
-	if (line === 'ls') {
-		_term.writeln('.. . file1 file2 file3');
-	}
-	else if (line === 'help') {
-		_term.writeln('Available commands: ls cd cat help');
-	}
-	else {
-		_term.writeln(`Unrecognised command ${line}. Type 'help' to list commands`);
-	}
+let handleLine = line => {
+    var components = extractCommand(line);
+    console.log(components);
 
-	// ls
-	// cd
-	// filesystem
-	// cat
-	// help
+    let command = components[0];
+
+    switch (command) {
+        case 'ls':
+            _term.writeln(ls(components[1]));
+            break;
+        case 'cd':
+            cd(components[1]);
+            break;
+        case 'help':
+            _term.writeln('Available commands: ls cd help');
+            break;
+        default:
+            _term.writeln(`Unrecognised command ${command}. Type 'help' to list commands`);
+            break;
+    }
 };
 
-export let termUtils = {
+// String line e.g. 'ls -al ./folder' -> array of components e.g. ['ls', './folder', 'a', 'l']
+let extractCommand = line => {
+    // upgrade to regex parsing
+    return line.split(/\s+/);
+}
+
+export {
 	init,
 	keyHandler
 };
