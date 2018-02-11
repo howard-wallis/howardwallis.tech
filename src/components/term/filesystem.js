@@ -11,10 +11,10 @@ let setFs = fileSystemJson => {
 }
 
 let objAtPath = path => {
-	if (!path || typeof(path) !== 'object' || path.length === 0) {
+	if (!path || path.length === 0) {
 		return null;
 	}
-	if (path === ['/']) {
+	if (path.length === 1 && path[0] === '/') {
 		return fs;
     }
     
@@ -33,7 +33,9 @@ let objAtPath = path => {
 // };
 
 let ls = pathString => {
-    let path = parsePath(pathString) || currentPath;
+    let path = typeof(pathString) === 'string'
+        ? parsePath(pathString) || currentPath
+        : ['/'];
 
     return objAtPath(path)
         .children

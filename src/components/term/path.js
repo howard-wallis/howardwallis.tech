@@ -15,12 +15,12 @@ let isFilePath = pathString => {
     // Possibly a slash, 
     // then one or more alphanumeric or dashes followed by slashes,
     // then possibly some more alphanumeric or dashes or dots
-    const filePathValidationRegex = /^\/?(?:[\w-]+\/?)+[\w-.]*$/;
+    const filePathValidationRegex = /^\/?(?:[\w-]+\/?)*(?:\.[\w-]+)+$/;
     return pathString && filePathValidationRegex.test(pathString);
 }
 
 let isFromRoot = pathString => {
-    return pathString[0] == '/' || pathString[0] == '\\';
+    return pathString[0] === '/' || pathString[0] === '\\';
 }
 
 export {
