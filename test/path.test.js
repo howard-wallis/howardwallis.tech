@@ -17,6 +17,11 @@ describe('parsePath', () => {
 		expect(res).toEqual([]);
 	});
 
+	test('/photos/path path', () => {
+		let res = path.parsePath('/photos/path');
+		expect(res).toEqual(['photos', 'path']);
+	});
+
 });
 
 describe('isPath identifies correct paths', () => {

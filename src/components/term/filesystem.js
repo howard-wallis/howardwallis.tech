@@ -2,7 +2,7 @@
 import defaultFs from './fileSystem.json';
 import {parsePath, isPath, isFilePath, isFromRoot} from './path.js';
 
-let currentPath = ['/'];
+let currentPath = [];
 let fs = defaultFs;
 
 let setFs = fileSystemJson => {
@@ -12,30 +12,23 @@ let setFs = fileSystemJson => {
 
 let objAtPath = path => {
 	if (!path || path.length === 0) {
-		return null;
-	}
-	if (path.length === 1 && path[0] === '/') {
 		return fs;
     }
     
-	let res = fs;
-
-	path.forEach(pathPiece => {
-        res = res.children.filter(child => child.name === pathPiece)[0];
-        if (res === undefined) return null;
-	});
+    let res = fs;
+    
+    for (let i = 0; i < path.length; i++) {
+        res = res.children.filter(child => child.name === path[i])[0];
+        if (res === undefined || res.length === 0) return null;
+    }
 
 	return res;
 };
 
-// let pathOfObj = fsObj => {
-// 	// recursive query until you find the obj
-// };
-
 let ls = pathString => {
     let path = typeof(pathString) === 'string'
         ? parsePath(pathString) || currentPath
-        : ['/'];
+        : [];
 
     return objAtPath(path)
         .children
@@ -60,19 +53,23 @@ let cd = pathString => {
 };
 
 let getCurrentPath = () => {
-    return currentPath.join();
-}
+    if (currentPath.length === 0)
+        return '/';
+    return currentPath.reduce((acc, cur) => acc + `${cur}/`, '/');
+} 
 
 let setCurrentPath = path => {
     if(objAtPath(path)) {
-        currentPath = isPath;
+        currentPath = path;
+        return true;
     }
+    return false;
 }
 
 let appendCurrentPath = path => {
     let newPath = currentPath.concat(path);
     if(objAtPath(newPath)) {
-        currentPath = isPath;
+        currentPath = path;
     }
 }
 
@@ -81,5 +78,6 @@ export {
 	cd,
     objAtPath,
     setFs,
-    getCurrentPath
+    getCurrentPath,
+    setCurrentPath
 };

@@ -9,16 +9,16 @@ describe('objAtPath', () => {
 
 	test('no path', () => {
 		let res = fileSystem.objAtPath([]);
-		expect(res).toBe(null);
+		expect(res).toBe(fsJson);
 	});
 	
 	test('null path', () => {
 		let res = fileSystem.objAtPath(null);
-		expect(res).toBe(null);
+		expect(res).toBe(fsJson);
 	});
 	
 	test('/', () => {
-		let res = fileSystem.objAtPath(['/']);
+		let res = fileSystem.objAtPath([]);
 		expect(res).toBe(fsJson);
 	});
 	
@@ -89,5 +89,43 @@ describe('ls', () => {
 		let res = fileSystem.ls('/photos');
 		expect(res).toEqual(expected);
 	});
+
+});
+
+describe('cd', () => {
+
+});
+
+describe('get and set path', () => {
+	beforeEach(() => {
+		fileSystem.setCurrentPath([]);
+	})
+
+	test('a good path', () => {
+		let original = fileSystem.getCurrentPath();
+		expect(original).toBe('/');
+	
+		let success = fileSystem.setCurrentPath(['photos']);
+		let updated = fileSystem.getCurrentPath();
+
+		expect(success).toBe(true);
+		expect(updated).toBe('/photos/');
+	});
+	
+	test('a bad path', () => {
+		let original = fileSystem.getCurrentPath();
+		expect(original).toBe('/');
+	
+		let expected = ['nothing', 'at', 'this', 'path'];
+		let success = fileSystem.setCurrentPath(expected);
+		let updated = fileSystem.getCurrentPath();
+
+		expect(success).toBe(false);
+		expect(updated).toBe('/');
+	});
+
+});
+
+test('append and get current path', () => {
 
 });
