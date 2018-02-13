@@ -70,7 +70,9 @@ let appendCurrentPath = path => {
     let newPath = currentPath.concat(path);
     if(objAtPath(newPath)) {
         currentPath = path;
+        return true;
     }
+    return false;
 }
 
 export {
@@ -79,5 +81,6 @@ export {
     objAtPath,
     setFs,
     getCurrentPath,
-    setCurrentPath
+    setCurrentPath,
+    appendCurrentPath
 };

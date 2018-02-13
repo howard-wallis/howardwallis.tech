@@ -92,11 +92,8 @@ describe('ls', () => {
 
 });
 
-describe('cd', () => {
-
-});
-
 describe('get and set path', () => {
+	
 	beforeEach(() => {
 		fileSystem.setCurrentPath([]);
 	})
@@ -126,6 +123,37 @@ describe('get and set path', () => {
 
 });
 
-test('append and get current path', () => {
+describe('append and get path', () => {
+
+	beforeEach(() => {
+		fileSystem.setCurrentPath([]);
+	})
+
+	test('a good path', () => {
+		let original = fileSystem.getCurrentPath();
+		expect(original).toBe('/');
+	
+		let success = fileSystem.appendCurrentPath(['photos']);
+		let updated = fileSystem.getCurrentPath();
+
+		expect(success).toBe(true);
+		expect(updated).toBe('/photos/');
+	});
+	
+	test('a bad path', () => {
+		let original = fileSystem.getCurrentPath();
+		expect(original).toBe('/');
+	
+		let expected = ['nothing', 'at', 'this', 'path'];
+		let success = fileSystem.appendCurrentPath(expected);
+		let updated = fileSystem.getCurrentPath();
+
+		expect(success).toBe(false);
+		expect(updated).toBe('/');
+	});
+
+});
+
+describe('cd', () => {
 
 });
