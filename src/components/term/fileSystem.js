@@ -44,10 +44,10 @@ let cd = pathString => {
     }
 
     if (isFromRoot(pathString)) {
-        setCurrentPathByString(path);
+        setCurrentPath(path);
     }
     else {
-        appendCurrentPathByString(path);
+        appendCurrentPath(path);
     }
     return true;
 };
