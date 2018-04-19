@@ -43,7 +43,7 @@ let setCurrentPath = path => {
 let appendCurrentPath = path => {
     let newPath = currentPath.concat(path);
     if (objAtPath(newPath)) {
-        currentPath = path;
+        currentPath = newPath;
         return true;
     }
     return false;

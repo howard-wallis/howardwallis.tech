@@ -56,8 +56,9 @@ let handleLine = line => {
     case 'ls':
         ls(components[1]).map(x => _term.writeln(x));
         break;
-    case 'cd':
-        cd(components[1]);
+	case 'cd':
+		let res = cd(components[1]);
+		if (res) _term.writeln(res);
         break;
     case 'help':
         _term.writeln(helpText);

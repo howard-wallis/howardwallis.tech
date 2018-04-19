@@ -1,21 +1,28 @@
 import { parsePath, isFromRoot } from '../path';
-import { setCurrentPath, appendCurrentPath } from '../fileSystem';
+import { setCurrentPath, appendCurrentPath, getCurrentPathString } from '../fileSystem';
 
 let cd = pathString => {
-    // TODO ..
-    let path = parsePath(pathString);
-    if (!path) {
-        return false;
-    }
+    if (!pathString) return null;
 
+    let success = false;
     if (isFromRoot(pathString)) {
-        setCurrentPath(path);
+        let path = parsePath(pathString);
+        console.log('set', path);
+        if (!path) return helpText(pathString);
+        success = setCurrentPath(path);
     }
     else {
-        appendCurrentPath(path);
+        let ps = getCurrentPathString() + pathString;
+        let path = parsePath(getCurrentPathString() + pathString);
+        console.log('append', ps, path);
+        if (!path) return helpText(pathString);
+        success = setCurrentPath(path);
     }
-    return true;
+    if (!success) return helpText(pathString);
+    return null;
 };
+
+let helpText = pathString => `-bash: cd: ${pathString}: No such directory`;
 
 export {
     cd
