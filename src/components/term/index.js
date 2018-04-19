@@ -9,32 +9,32 @@ import './style.css';
 import { init, keyHandler } from './termUtils';
 
 export default class Term extends Component {
-	componentDidMount() {
-		Terminal.applyAddon(fullscreen);
-		let term = new Terminal({
-			cursorBlink: true,
-			cursorStyle: 'underline',
-			screenReaderMode: true,
-			fontWeight: 600,
-			fontWeightBold: 800,
-			fontSize: 16
-		});
-		term.open(document.getElementById('terminal'));
-		term.focus();
-		term.toggleFullScreen();
+    componentDidMount() {
+        Terminal.applyAddon(fullscreen);
+        let term = new Terminal({
+            cursorBlink: true,
+            cursorStyle: 'underline',
+            screenReaderMode: true,
+            fontWeight: 600,
+            fontWeightBold: 800,
+            fontSize: 16
+        });
+        term.open(document.getElementById('terminal'));
+        term.focus();
+        term.toggleFullScreen();
 
-		// Hide scrollbar
-		var viewport = document.querySelector('.xterm-viewport');
-		viewport.setAttribute('style', 'overflow: hidden');
+        // Hide scrollbar
+        let viewport = document.querySelector('.xterm-viewport');
+        viewport.setAttribute('style', 'overflow: hidden');
 
-		init(term);
+        init(term);
 
-		term.on('key', keyHandler);
-	}
+        term.on('key', keyHandler);
+    }
 
-	render() {
-		return (
-			<div id="terminal" />
-		);
-	}
+    render() {
+        return (
+            <div id="terminal" />
+        );
+    }
 }

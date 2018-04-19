@@ -1,6 +1,5 @@
 // https://www.npmjs.com/package/directory-structure-json
 import defaultFs from './fileSystem.json';
-import { parsePath, isPath, isFilePath, isFromRoot } from './path';
 
 let currentPath = [];
 let fs = defaultFs;
@@ -8,7 +7,7 @@ let fs = defaultFs;
 let setFs = fileSystemJson => {
     if (fileSystemJson)
         fs = fileSystemJson;
-}
+};
 
 let objAtPath = path => {
     if (!path || path.length === 0) {
@@ -25,28 +24,13 @@ let objAtPath = path => {
     return res;
 };
 
-let cd = pathString => {
-    let path = parsePath(pathString);
-    if (!path) {
-        return false;
-    }
-
-    if (isFromRoot(pathString)) {
-        setCurrentPath(path);
-    }
-    else {
-        appendCurrentPath(path);
-    }
-    return true;
-};
-
 let getCurrentPath = () => currentPath;
 
 let getCurrentPathString = () => {
     if (currentPath.length === 0)
         return '/';
     return currentPath.reduce((acc, cur) => acc + `${cur}/`, '/');
-}
+};
 
 let setCurrentPath = path => {
     if (objAtPath(path)) {
@@ -54,7 +38,7 @@ let setCurrentPath = path => {
         return true;
     }
     return false;
-}
+};
 
 let appendCurrentPath = path => {
     let newPath = currentPath.concat(path);
@@ -63,10 +47,9 @@ let appendCurrentPath = path => {
         return true;
     }
     return false;
-}
+};
 
 export {
-    cd,
     objAtPath,
     setFs,
     getCurrentPath,

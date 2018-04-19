@@ -14,18 +14,17 @@ let formatFiles = items => {
     // ANSI escape sequences are counted for tab calculations despite not being printed.
     // This will offset them so that tabulation looks correct
     const colourHackSpaces = '        ';
-    let colouredItems = items.map(x => x.type == 'folder'
+    let colouredItems = items.map(x => x.type === 'folder'
         ? colourText(x.name, AnsiColours.Reverse) + colourHackSpaces
         : x.name);
 
     let res = [];
     while (colouredItems.length > 0) {
         let row = colouredItems.splice(0, 4).join('\t');
-        console.log(row);
         res.push(row);
     }
     return res;
-}
+};
 
 // Returns an array of lines to print
 let ls = pathString => {

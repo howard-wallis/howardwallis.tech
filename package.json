@@ -8,13 +8,16 @@
     "build": "preact build",
     "serve": "preact build && preact serve",
     "dev": "preact watch",
-    "lint": "eslint src",
+    "lint": "eslint src --fix",
     "test": "jest",
     "clean-prod": "aws s3 rm s3://howardwallis.tech --recursive",
     "deploy": "npm run clean-prod && aws s3 cp build/ s3://howardwallis.tech --recursive"
   },
   "eslintConfig": {
-    "extends": "eslint-config-synacor"
+    "extends": "eslint-config-synacor",
+    "rules": {
+      "indent": ["error", 4]
+    }
   },
   "eslintIgnore": [
     "build/*"
