@@ -15,14 +15,14 @@ export default class Term extends Component {
 			cursorBlink: true,
 			cursorStyle: 'underline',
 			screenReaderMode: true,
-			fontWeight: 400,
-			fontWeightBold: 700,
+			fontWeight: 600,
+			fontWeightBold: 800,
 			fontSize: 16
 		});
 		term.open(document.getElementById('terminal'));
 		term.focus();
 		term.toggleFullScreen();
-		
+
 		// Hide scrollbar
 		var viewport = document.querySelector('.xterm-viewport');
 		viewport.setAttribute('style', 'overflow: hidden');

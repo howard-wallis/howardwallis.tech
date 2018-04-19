@@ -19,6 +19,40 @@
         {
             "name": "file1.txt",
             "type": "file"
+        },
+        {
+            "name": "file2.txt",
+            "type": "file"
+        },
+        {
+            "name": "file3",
+            "type": "file"
+        },
+        {
+            "name": "file4.csv",
+            "type": "file"
+        },
+        {
+            "name": "file5.js",
+            "type": "file"
+        },
+        {
+            "name": "file5.js",
+            "type": "file"
+        },
+        {
+            "name": "bin",
+            "type": "folder",
+            "children": [
+                {
+                    "name": "main.c",
+                    "type": "file"
+                },
+                {
+                    "name": ".gitignore",
+                    "type": "file"
+                }
+            ]
         }
     ]
 }

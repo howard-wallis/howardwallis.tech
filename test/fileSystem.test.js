@@ -99,23 +99,23 @@ describe('get and set path', () => {
 	})
 
 	test('a good path', () => {
-		let original = fileSystem.getCurrentPath();
+		let original = fileSystem.getCurrentPathString();
 		expect(original).toBe('/');
 	
 		let success = fileSystem.setCurrentPath(['photos']);
-		let updated = fileSystem.getCurrentPath();
+		let updated = fileSystem.getCurrentPathString();
 
 		expect(success).toBe(true);
 		expect(updated).toBe('/photos/');
 	});
 	
 	test('a bad path', () => {
-		let original = fileSystem.getCurrentPath();
+		let original = fileSystem.getCurrentPathString();
 		expect(original).toBe('/');
 	
 		let expected = ['nothing', 'at', 'this', 'path'];
 		let success = fileSystem.setCurrentPath(expected);
-		let updated = fileSystem.getCurrentPath();
+		let updated = fileSystem.getCurrentPathString();
 
 		expect(success).toBe(false);
 		expect(updated).toBe('/');
@@ -130,23 +130,23 @@ describe('append and get path', () => {
 	})
 
 	test('a good path', () => {
-		let original = fileSystem.getCurrentPath();
+		let original = fileSystem.getCurrentPathString();
 		expect(original).toBe('/');
 	
 		let success = fileSystem.appendCurrentPath(['photos']);
-		let updated = fileSystem.getCurrentPath();
+		let updated = fileSystem.getCurrentPathString();
 
 		expect(success).toBe(true);
 		expect(updated).toBe('/photos/');
 	});
 	
 	test('a bad path', () => {
-		let original = fileSystem.getCurrentPath();
+		let original = fileSystem.getCurrentPathString();
 		expect(original).toBe('/');
 	
 		let expected = ['nothing', 'at', 'this', 'path'];
 		let success = fileSystem.appendCurrentPath(expected);
-		let updated = fileSystem.getCurrentPath();
+		let updated = fileSystem.getCurrentPathString();
 
 		expect(success).toBe(false);
 		expect(updated).toBe('/');
