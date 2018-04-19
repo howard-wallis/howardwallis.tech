@@ -52,46 +52,6 @@ describe('objAtPath', () => {
 
 });
 
-describe('ls', () => {
-
-	test('no path', () => {
-		let expected = 'photos file1.txt';
-		let res = fileSystem.ls('');
-		expect(res).toEqual(expected);
-	});
-
-	test('empty path', () => {
-		let expected = 'photos file1.txt';
-		let res = fileSystem.ls();
-		expect(res).toEqual(expected);
-	});
-	
-	test('null path', () => {
-		let expected = 'photos file1.txt';
-		let res = fileSystem.ls(null);
-		expect(res).toEqual(expected);
-	});
-	
-	test('incorrectly typed path', () => {
-		let expected = 'photos file1.txt';
-		let res = fileSystem.ls(12345);
-		expect(res).toEqual(expected);
-	});
-
-	test('bad path', () => {
-		let expected = 'photos file1.txt';
-		let res = fileSystem.ls('/this is a bad path');
-		expect(res).toEqual(expected);
-	});
-	
-	test('/photos', () => {
-		let expected = 'img1.jpg img2.png';
-		let res = fileSystem.ls('/photos');
-		expect(res).toEqual(expected);
-	});
-
-});
-
 describe('get and set path', () => {
 	
 	beforeEach(() => {

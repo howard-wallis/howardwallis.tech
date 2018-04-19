@@ -22,10 +22,20 @@ describe('parsePath', () => {
 		expect(res).toEqual(['photos', 'path']);
 	});
 
+	test('/photos/../photos path', () => {
+		let res = path.parsePath('/photos/../photos');
+		expect(res).toEqual(['photos']);
+	});
+
+	test('/../ path', () => {
+		let res = path.parsePath('/../');
+		expect(res).toEqual([]);
+	});
+
 });
 
 describe('isPath identifies correct paths', () => {
-	let correctPaths = ['/', 'path', '/path/path2', 'path/path-path'];
+	let correctPaths = ['/', 'path', '/path/path2', 'path/path-path', 'path/../path', '../'];
 	correctPaths.forEach(p => 
 		test(p, () => {
 			expect(path.isPath(p)).toBeTruthy();
@@ -43,7 +53,7 @@ describe('isPath identifies incorrect paths', () => {
 });
 
 describe('isFilePath identifies correct paths', () => {
-	let correctPaths = ['/file.file', 'path.js', '/path/path2.test.js'];
+	let correctPaths = ['/file.file', 'path.js', '/path/path2.test.js', '../path.js'];
 	correctPaths.forEach(p => 
 		test(p, () => {
 			expect(path.isFilePath(p)).toBeTruthy();
