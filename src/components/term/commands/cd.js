@@ -1,7 +1,8 @@
-import { parsePath, isFromRoot } from './path';
+import { parsePath, isFromRoot } from '../path';
 import { setCurrentPath, appendCurrentPath } from '../fileSystem';
 
 let cd = pathString => {
+    // TODO ..
     let path = parsePath(pathString);
     if (!path) {
         return false;
