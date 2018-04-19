@@ -1,7 +1,6 @@
 import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 
-import Header from './header';
 import Home from '../routes/home';
 
 export default class App extends Component {
@@ -14,13 +13,11 @@ export default class App extends Component {
 	  this.currentUrl = e.url;
 	};
 
-	render() {
-	  return (
+	render = () => (
 	    <div id="app">
 	      <Router onChange={this.handleRoute}>
 	        <Home path="/" />
 	      </Router>
 	    </div>
-	  );
-	}
+	  )
 }

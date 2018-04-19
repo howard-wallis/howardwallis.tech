@@ -16,7 +16,7 @@ let parsePath = pathString => {
     }
 
     return path;
-}
+};
 
 let isPath = pathString => {
     // Possibly a slash,
