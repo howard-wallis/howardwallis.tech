@@ -55,7 +55,9 @@ let handleLine = line => {
 
     switch (command) {
     case 'ls':
-        ls(components[1]).map(x => _term.writeln(x));
+		res = ls(components[1])
+		if (Array.isArray(res)) res.map(x => _term.writeln(x))
+		else _term.writeln(res);
         break;
     case 'cd':
         res = cd(components[1]);
