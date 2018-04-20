@@ -20,8 +20,8 @@ let formatFiles = items => {
     // This will offset them so that tabulation looks correct
     const colourHackSpaces = '        ';
     let colouredItems = items.map(x => x.type === 'folder'
-    ? colourText(x.name, AnsiColours.Reverse) + colourHackSpaces
-    : x.name);
+        ? colourText(x.name, AnsiColours.Reverse) + colourHackSpaces
+        : x.name);
     
     let res = [];
     while (colouredItems.length > 0) {
@@ -37,7 +37,7 @@ let ls = pathString => {
     return formatFiles(items) || helpText(pathString);
 };
 
-let helpText = path => `ls: cannot access ${path}: No such file or directory`
+let helpText = path => `ls: cannot access ${path}: No such file or directory`;
 
 export {
     ls
